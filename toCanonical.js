@@ -1,7 +1,7 @@
-const canonize = require('rdf-canonize')
+const URDNA2015Sync = require('rdf-canonize/lib/URDNA2015Sync.js')
 
 function toCanonical (dataset) {
-  return canonize.canonize([...dataset], { algorithm: 'URDNA2015' })
+  return new URDNA2015Sync().main(dataset)
 }
 
 module.exports = toCanonical
