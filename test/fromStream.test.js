@@ -1,28 +1,30 @@
-/* global describe, expect, test */
-
-const fromStream = require('../fromStream')
-const dataset = require('@rdfjs/dataset')
+const { rejects, strictEqual } = require('assert')
 const model = require('@rdfjs/data-model')
+const dataset = require('@rdfjs/dataset')
 const namespace = require('@rdfjs/namespace')
+const { describe, it } = require('mocha')
 const { Readable } = require('readable-stream')
+const fromStream = require('../fromStream')
 
 const ns = namespace('http://example.org/')
 const rdf = { ...model, ...dataset }
 
 describe('fromStream', () => {
-  test('returns the given dataset instance via Promise', async () => {
+  it('returns the given dataset instance via Promise', async () => {
     const stream = new Readable({
       objectMode: true,
-      read: () => { stream.push(null) }
+      read: () => {
+        stream.push(null)
+      }
     })
     const dataset = rdf.dataset()
 
     const result = await fromStream(dataset, stream)
 
-    expect(result).toBe(dataset)
+    strictEqual(result, dataset)
   })
 
-  test('imports quads from stream', async () => {
+  it('imports quads from stream', async () => {
     const quad1 = rdf.quad(ns.subject1, ns.predicate, ns.object, ns.graph)
     const quad2 = rdf.quad(ns.subject2, ns.predicate, ns.object, ns.graph)
     const stream = new Readable({
@@ -37,18 +39,20 @@ describe('fromStream', () => {
 
     await fromStream(dataset, stream)
 
-    expect(dataset.size).toBe(2)
-    expect(dataset.has(quad1)).toBe(true)
-    expect(dataset.has(quad2)).toBe(true)
+    strictEqual(dataset.size, 2)
+    strictEqual(dataset.has(quad1), true)
+    strictEqual(dataset.has(quad2), true)
   })
 
-  test('forwards stream errors', async () => {
+  it('forwards stream errors', async () => {
     const stream = new Readable({
       objectMode: true,
-      read: () => { stream.emit('error', new Error('test')) }
+      read: () => {
+        stream.emit('error', new Error('test'))
+      }
     })
     const dataset = rdf.dataset()
 
-    await expect(fromStream(dataset, stream)).rejects.toThrow('test')
+    await rejects(fromStream(dataset, stream))
   })
 })

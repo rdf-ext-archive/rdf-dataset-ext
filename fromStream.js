@@ -1,5 +1,5 @@
-const { finished } = require('readable-stream')
 const { promisify } = require('util')
+const { finished } = require('readable-stream')
 
 async function fromStream (dataset, stream) {
   stream.on('data', quad => dataset.add(quad))
