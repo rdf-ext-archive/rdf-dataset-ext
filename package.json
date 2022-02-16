@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-dataset-ext",
   "dependencies": {
-    "rdf-canonize": "^1.0.3",
+    "rdf-canonize": "^3.0.0",
     "readable-stream": "^3.4.0"
   },
   "devDependencies": {
