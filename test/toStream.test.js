@@ -3,7 +3,7 @@ const { promisify } = require('util')
 const model = require('@rdfjs/data-model')
 const dataset = require('@rdfjs/dataset')
 const namespace = require('@rdfjs/namespace')
-const { isReadable } = require('isstream')
+const isStream = require('is-stream')
 const { describe, it } = require('mocha')
 const { finished } = require('readable-stream')
 const toStream = require('../toStream')
@@ -17,7 +17,7 @@ describe('toStream', () => {
 
     const result = toStream(dataset)
 
-    strictEqual(isReadable(result), true)
+    strictEqual(isStream.readable(result), true)
   })
 
   it('stream emits all quads of the dataset', async () => {
