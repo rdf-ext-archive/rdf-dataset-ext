@@ -1,5 +1,8 @@
 # rdf-dataset-ext
 
+[![build status](https://img.shields.io/github/actions/workflow/status/rdf-ext/rdf-dataset-ext/test.yaml?branch=master)](https://github.com/rdf-ext/rdf-dataset-ext/actions/workflows/test.yaml)
+[![npm version](https://img.shields.io/npm/v/rdf-dataset-ext.svg)](https://www.npmjs.com/package/rdf-dataset-ext)
+
 Util functions for easier RDF/JS DatasetCore handling.
 
 ## Usage
